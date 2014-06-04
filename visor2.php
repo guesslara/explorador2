@@ -34,7 +34,7 @@
             var altoCuerpo=altoDiv-75;
             var anchoCuerpo=anchoDiv-13;
             $("#browserArchivos").css("height",altoCuerpo+"px");            	
-            $("#browserArchivos").css("width",(anchoCuerpo-310)+"px");
+            $("#browserArchivos").css("width",(anchoCuerpo)+"px");
 	    $("#vistaPreviaArchivo").css("height",altoCuerpo+"px");            	
             $("#vistaPreviaArchivo").css("width",(anchoCuerpo)+"px");
 	    $("#propiedades").css("height",altoCuerpo+"px");
@@ -225,7 +225,7 @@
 	<div id="btnVistaPrevia" class="estiloCerrarVistaPrevia" style="width: auto;" onclick="cerrarVistaPrevia()">Cerrar Vista Previa</div>
     </div>
     <div id="browserArchivos" style="margin: 0px 5px 5px 5px;width: 99.2%;border: 1px solid #CCC;background: #FFF;position: relative;overflow-x: auto;float: left;"></div>
-    <div id="propiedades" style="display: block;position: absolute;width: 307px;height: 300px;top: 68px;background: #F0F0F0;border: 1px solid #CCC;right: 5px;float: right;">
+    <div id="propiedades" style="display: none;position: absolute;width: 307px;height: 300px;top: 68px;background: #F0F0F0;border: 1px solid #CCC;right: 5px;float: right;">
     
     </div>
     <iframe id="vistaPreviaArchivo" style="display: none;margin: 0px 5px 5px 5px;width: 99.2%;border: 1px solid #CCC;background: #F0F0F0;position: relative;overflow-x: auto;"></iframe>
