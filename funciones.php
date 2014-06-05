@@ -51,9 +51,10 @@ class funciones{
                             $contenidoDir[$i][4]=fileperms($path."/".$archivo);//permisos del archivo
                             $contenidoDir[$i][5]=fileatime($path."/".$archivo);//ultimo acceso del archivo
                             $contenidoDir[$i][6]=filectime($path."/".$archivo);//ultimo cambio del archivo
-                            $contenidoDir[$i][7]=finfo_file($finfo,$path."/".$archivo);        
+                            $contenidoDir[$i][7]=finfo_file($finfo,$path."/".$archivo);
+                            $i+=1;
 			}
-                        $i+=1;
+                        
 		    }
                     
                     
@@ -83,7 +84,7 @@ class funciones{
     echo "<pre>";
     print_r($contenidoDir);
     echo "</pre>";
-    echo $contenidoDir;
+    
     //$carpeta=$obj->crearDirectorio("pruebaX","documentos");
     //echo $carpeta;
 ?>

@@ -45,7 +45,7 @@
     function abrirDirectorio(path){        
         $("#ubicacionDirectorios").html(path);
 	$("#hdnRutaActual").attr("value",path);
-        ajaxApp("browserArchivos","auxVisor.php","action=abrirDirectorio&path="+path,"POST");
+        ajaxApp("browserArchivos","controlador.php","action=abrirDirectorio&path="+path,"POST");
 	$('#btnAtras').show();
     }
     
