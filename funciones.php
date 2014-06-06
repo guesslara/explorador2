@@ -45,13 +45,13 @@ class funciones{
 		    while ($archivo = $directorio->read()){		    
 			if($archivo != "." && $archivo != ".."){
                             $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                            $contenidoDir[$i][1]=$archivo;
-                            $contenidoDir[$i][2]=filetype($path."/".$archivo);//tipo de archivo
-                            $contenidoDir[$i][3]=filesize($path."/".$archivo);//tamaño del archivo
-                            $contenidoDir[$i][4]=fileperms($path."/".$archivo);//permisos del archivo
-                            $contenidoDir[$i][5]=fileatime($path."/".$archivo);//ultimo acceso del archivo
-                            $contenidoDir[$i][6]=filectime($path."/".$archivo);//ultimo cambio del archivo
-                            $contenidoDir[$i][7]=finfo_file($finfo,$path."/".$archivo);
+                            $contenidoDir[$i][0]=$archivo;
+                            $contenidoDir[$i][1]=filetype($path."/".$archivo);//tipo de archivo
+                            $contenidoDir[$i][2]=filesize($path."/".$archivo);//tamaño del archivo
+                            $contenidoDir[$i][3]=fileperms($path."/".$archivo);//permisos del archivo
+                            $contenidoDir[$i][4]=fileatime($path."/".$archivo);//ultimo acceso del archivo
+                            $contenidoDir[$i][5]=filectime($path."/".$archivo);//ultimo cambio del archivo
+                            $contenidoDir[$i][6]=finfo_file($finfo,$path."/".$archivo);
                             $i+=1;
 			}
                         
@@ -78,13 +78,13 @@ class funciones{
     
 }//fin de la clase
 
-
+/*
     $obj=new funciones();
     $contenidoDir=$obj->leerDirectorio("documentos");
     echo "<pre>";
     print_r($contenidoDir);
     echo "</pre>";
-    
+*/    
     //$carpeta=$obj->crearDirectorio("pruebaX","documentos");
     //echo $carpeta;
 ?>
