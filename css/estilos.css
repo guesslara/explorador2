@@ -34,3 +34,6 @@ body{margin: 0px;font-family:Geneva, Verdana, sans-serif;font-size: 12px;height:
 
 /*imagenes*/
 .imgCarpetasFiles{float:right;margin-top:2px;}
+
+/*estilos elementos seleccionados*/
+.elementosSeleccionados{margin:10px;border-bottom:1px solid #CCC;}

@@ -14,14 +14,11 @@ class funciones{
     */
     function renombrarDirectorio($directorio,$idInput,$idEnlace,$nuevoNombre,$rutaActual){
 	if(file_exists($rutaActual."/".$nuevoNombre)){
-            //echo "<script type='text/javascript'> alert('El directorio ya existe'); </script>";
             $resultado="%%%%";
         }else{
             if(rename($rutaActual."/".$directorio,$rutaActual."/".$nuevoNombre)){
-                //echo "<script type='text/javascript'> actualizarDirectorio('".$rutaActual."'); $('#".$idInput."').hide(); $('#".$idEnlace."').show(); </script>";
                 $resultado=$rutaActual;
             }else{
-                //echo "<script type='text/javascript'> alert('Error al cambiar el nombre del directorio'); </script>";
                 $resultado=0;
             }
         }

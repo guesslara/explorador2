@@ -3,6 +3,7 @@
 */
 var path="" ;
 var nombreFuncion="";
+var listadoDirectoriosActual=new Array();
 function actualizarDirectorio(path){
     ocultarVistaPrevia();
     $("#ubicacionDirectorios").html(path);
@@ -20,6 +21,7 @@ function abrirDirectorio(path){
 function escribirContenido(datos){
     //<input type='checkbox' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' />
     $("#browserArchivos").html("");
+    listadoDirectoriosActual=[];
     contenidoDirectorio=datos.split("|");//partimos la cadena
     for(var i=0;i<contenidoDirectorio.length;i++){
         nombreFuncion="";  funcionEliminar="";
@@ -30,13 +32,19 @@ function escribirContenido(datos){
             path=pathActual+"/"+valores[2];
             if(valores[0]=="dir"){//se arman las funciones para las vistas previas o abrir elementos
                 nombreFuncion="<div class='contenedorFile' onclick='abrirDirectorio(\""+path+"\")'>";
-                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
+                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
+		listadoDirectoriosActual.push(valores[2]);
             }else{
                 nombreFuncion="<div class='contenedorFile' onclick='mostrarArchivo(\""+path+"\")'>";
-                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><a href='#' onclick='eliminarArchivo(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",,\""+boton+"\")'  title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
+                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminarArchivo(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",,\""+boton+"\")'  title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
             }
             funcionRenombrar="<div id='"+idNombre+"' class='nombreFileDir'>"+valores[2]+"</div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /></div>";
-            
+            if (valores[2].length > 16) {
+		nombreFileDir=valores[2].substring(0,13)+"...";
+	    }else{
+		nombreFileDir=valores[2];
+	    }
+	    
             //se arman las estructuras para los diferentes elementos del directorio
             elemento="<div class='contenedorArchivo'>";
             elemento+="<div class='limiteCarpeta'>";
@@ -45,7 +53,7 @@ function escribirContenido(datos){
             elemento+="<div class='imagenFile'></div>";
             elemento+="</div>";
             elemento+="</div>";
-            elemento+="<div class='nombreFileDir'><span id='"+idNombre+"'>"+valores[2]+"</span></div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /><input type='button' id='"+boton+"' value='Guardar...' onclick='guardarNuevoNombreDir(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+evento+"\")' style='display:none;' /></div>";
+            elemento+="<div class='nombreFileDir'><span id='"+idNombre+"' title='"+valores[2]+"'>"+nombreFileDir+"</span></div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /><input type='button' id='"+boton+"' value='Guardar...' onclick='guardarNuevoNombreDir(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+evento+"\")' style='display:none;' /></div>";
             elemento+="</div>";
             $("#browserArchivos").append(elemento);
         }else{
@@ -68,7 +76,7 @@ function crearDirectorio(){
 }
 function mensajes(accion,datos){
     if(accion=="crearDir" && datos=="1"){//creado
-        alert("Directorio creado");
+        //alert("Directorio creado");
         actualizarDirectorio();
     }else if(accion=="crearDir" && datos=="0"){//error al crear el directorio
         alert("Error, al crear el directorio indicado");
@@ -83,10 +91,31 @@ function retrocederDirectorio(){
     //ajaxApp("browserArchivos","auxVisor.php","action=retrocederDirectorio&raizDirectorio="+raizDirectorio+"&rutaActual="+rutaActual,"POST");
     ajaxAppExplorador("retrocederDirectorio","controlador.php","action=retrocederDirectorio&raizDirectorio="+raizDirectorio+"&rutaActual="+rutaActual,"POST");
 }
+var contenidoM=new Array();//array para elementos seleccionados
 function seleccionarCheck(idElemento){
     //alert(idElemento);
-    $("#browserArchivos").css("width","70%");//se cambia de tamaño el div de los archivos
+    
+    contenidoM.push($("#"+idElemento).val());
+    $("#browserArchivos").css("width","60%");//se cambia de tamaño el div de los archivos
     $("#propiedades").show();
+    $("#propiedades").css("width","39%");
+    $("#txtPropiedades").html("&raquo;Mover elementos seleccionados");
+    $("#subirArchivos2").html("");
+    var comboMover="<select name='' id=''><option value='' selected='selected'>Seleccionar destino...</option>";
+    for(var j=0;j<listadoDirectoriosActual.length;j++){
+	//$("#subirArchivos2").append("<div class='elementosSeleccionados'>"+listadoDirectoriosActual[j]+"</div>");
+	comboMover+="<option value='"+listadoDirectoriosActual[j]+"'>"+listadoDirectoriosActual[j]+"</option>";
+    }
+    comboMover+="</select>";
+    $("#subirArchivos2").append("-------");
+    $("#subirArchivos2").append(comboMover);
+    for(var i=0;i<contenidoM.length;i++){
+	$("#subirArchivos2").append("<div class='elementosSeleccionados'>"+contenidoM[i]+"</div>");
+    }
+}
+function listarDirectoriosMover() {
+    //listar los directorios donde se puede mover el contenido
+    
 }
 function editarContenido(){
     cantEditar=parseInt($("#hdnCantElementos").val());
@@ -149,11 +178,20 @@ function guardarNuevoNombreDir(directorio,idInput,idEnlace,evento){
 }
 
 function mostrarFormSubirArchivos(){
+    $("#browserArchivos").css("width","60%");
+    $("#propiedades").show();
+    $("#propiedades").css("width","39%");
+    $("#txtPropiedades").html("&raquo;Subir archivos...");
     rutaActual=$("#hdnRutaActual").val();
-    $("#subirArchivos").show();
+    //$("#subirArchivos").show();
     //ajaxApp("detalleSubirArchivos","auxVisor.php","action=mostrarFormArchivos&rutaActual="+rutaActual,"POST");
-    //ajaxAppExplorador("subirArchivos","controlador.php","action=mostrarFormArchivos&rutaActual="+rutaActual,"POST")
-    frame="<iframe src='formUpArchivos.php?rutaActual="+rutaActual+"' style='background:#FFF; width:99.5%; height: 99%; overflow:auto;'></iframe>";
-    $("#detalleSubirArchivos").html("");
-    $("#detalleSubirArchivos").append(frame);
+    ajaxAppExplorador("subirArchivos","controlador.php","action=mostrarFormArchivos&rutaActual="+rutaActual,"POST")
+    
+}
+function cerrarVentanaSubirArchivos(){
+    rutaActual=$("#hdnRutaActual").val();
+    //$("#subirArchivos").hide();
+    $("#propiedades").hide();
+    $("#browserArchivos").css("width","99.2%");
+    actualizarDirectorio(rutaActual);
 }

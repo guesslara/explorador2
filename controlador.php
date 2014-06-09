@@ -69,8 +69,7 @@
             echo $mensaje;
         break;
         case "mostrarFormArchivos":
-            $rutaActual=$_POST["rutaActual"];
-            
+            echo $rutaActual=trim($_POST["rutaActual"]);
         break;
     }
 ?>

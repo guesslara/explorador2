@@ -5,7 +5,7 @@
      *@version		1.0.0
      *@author		Gerardo Lara <gerardolara1984@gmail.com>
      */
-    session_start();
+    //session_start();
     //se incluye el archivo de configuracion
     include "config.php";
     $rutaExplorar=$config['explorador']['path'];
@@ -79,11 +79,7 @@
 	});
     }*/
     
-    function cerrarVentanaSubirArchivos(){
-        rutaActual=$("#hdnRutaActual").val();
-        $("#subirArchivos").hide();
-        actualizarDirectorio(rutaActual);
-    }
+    
     function ocultarVistaPrevia(){
 	$("#browserArchivos").show();
 	$("#vistaPreviaArchivo").hide();
@@ -116,11 +112,11 @@
 	
     </div>
     <div id="propiedades" style="display: none;position: absolute;width: 28.5%;height: 300px;top: 68px;background: #F0F0F0;border: 1px solid #CCC;right: 5px;float: right;">
-	<div style="background: #FFF;height: 15px;padding: 5px;text-align: left;color: #666;font-weight: bold;">&raquo;Acciones sobre la carpeta</div>
-	<div style="border: 1px solid #CCC;background: #FFF;width: 96.5%;height: 90%;margin: 5px;">
-	    <div style="height: 15px;padding: 5px;margin: 5px;">&raquo;&nbsp;Renombrar</div>
-	    <div style="height: 15px;padding: 5px;margin: 5px;">&raquo;&nbsp;Eliminar</div>
+	<div id="txtPropiedades" style="background: #FFF;height: 15px;padding: 5px;text-align: left;color: #666;font-weight: bold;"></div>
+	<div id="subirArchivos2" style="border: 1px solid #CCC;background: #FFF;width: 96.5%;height: 85%;margin: 5px;">
+	    
 	</div>
+	<div style="border: 1px solid #ccc;background: #fff;width: 94.5%;height: 26px;padding: 5px;margin: 5px;text-align: right;"><input type="button" value="Cerrar Ventana" onclick="cerrarVentanaSubirArchivos()" style="background: #ff0000;color: #FFF;height: 25px;padding: 5px;"></div>
     </div>
     <iframe id="vistaPreviaArchivo" style="display: none;margin: 0px 5px 5px 5px;width: 99.2%;border: 1px solid #CCC;background: #F0F0F0;position: relative;overflow-x: auto;"></iframe>
 </div>

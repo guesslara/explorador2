@@ -1,4 +1,9 @@
-<? $rutaActual=$_GET["rutaActual"]; ?>
+<?php
+    /*echo "<pre>";
+    print_r($_GET);
+    echo "</pre>";*/
+    $rutaActual=$_GET["rutaActual"];
+?>
 <script type="text/javascript">
     var numero = 0; //Esta es una variable de control para mantener nombres
                 //diferentes de cada campo creado dinamicamente.

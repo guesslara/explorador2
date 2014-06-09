@@ -34,6 +34,9 @@ function controladorAcciones(accion,datos){
         break;
         case "retrocederDirectorio":
             abrirDirectorio(datos)
+	    if (datos==raizDirectorio) {
+		$("#btnAtras").hide();
+	    }
         break;
         case "eliminarDirectorio":
             if(datos=="%%%%"){
@@ -63,5 +66,10 @@ function controladorAcciones(accion,datos){
                 actualizarDirectorio(datos);
             }
         break;
+	case "subirArchivos":
+	    frame="<iframe src='formUpArchivos.php?rutaActual="+datos+"' style='background:#FFF; width:99.5%; height: 99%; overflow:auto;'></iframe>";
+	    $("#subirArchivos2").html("");
+	    $("#subirArchivos2").append(frame);
+	break;
     }
 }
