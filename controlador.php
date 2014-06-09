@@ -6,17 +6,10 @@
 */
     include "funciones.php";
     $obJFunciones=new funciones();
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
     switch($_POST["action"]){
-        case "abrirDirectorio":        
-            echo "abrir directorio<br>";
+        case "abrirDirectorio":
             $path=trim($_POST["path"]);
             $contenidoDir=$obJFunciones->leerDirectorio($path);
-            echo "<pre>";
-            print_r($contenidoDir);
-            echo "</pre>";
             $elementos="";
             for($i=0;$i<count($contenidoDir);$i++){
                 if($elementos==""){
@@ -36,9 +29,48 @@
                             $contenidoDir[$i][5].",".
                             $contenidoDir[$i][6];
                 }
-                
             }
             echo $elementos;
+        break;
+        case "crearDir":
+            $nombreDir=trim($_POST["nombreDir"]);
+            $path=trim($_POST["path"]);
+            $mensaje=$obJFunciones->crearDirectorio($nombreDir,$path);
+            echo $mensaje;
+        break;
+        case "retrocederDirectorio":
+            /*echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";*/
+            $raizDirectorio=$_POST["raizDirectorio"];
+            $rutaActual=$_POST["rutaActual"];
+            $retroceso=$obJFunciones->retrocederDirectorio($raizDirectorio,$rutaActual);
+            echo $retroceso;
+        break;
+        case "eliminaDir":
+            $directorioEliminar=$_POST["directorioEliminar"];
+            $rutaActual=$_POST["rutaActual"];
+            $mensaje=$obJFunciones->eliminarDirectorio($directorioEliminar,$rutaActual);
+            echo $mensaje;
+        break;
+        case "eliminaFile":
+            $archivoEliminar=$_POST["archivoEliminar"];
+            $rutaActual=$_POST["rutaActual"];
+            $mensaje=$obJFunciones->eliminarArchivo($archivoEliminar,$rutaActual);
+            echo $mensaje;
+        break;
+        case "renombrarDirectorio":
+            $directorio=$_POST["directorio"];
+            $idInput=$_POST["idInput"];
+            $idEnlace=$_POST["idEnlace"];
+            $nuevoNombre=$_POST["nuevoNombre"];
+            $rutaActual=$_POST["rutaActual"];
+            $mensaje=$obJFunciones->renombrarDirectorio($directorio,$idInput,$idEnlace,$nuevoNombre,$rutaActual);
+            echo $mensaje;
+        break;
+        case "mostrarFormArchivos":
+            $rutaActual=$_POST["rutaActual"];
+            
         break;
     }
 ?>

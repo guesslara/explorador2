@@ -19,7 +19,10 @@
         }
     }*/
 ?>
+<link rel="stylesheet" type="text/css" href="css/estilos.css"/>
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/funciones.js"></script>
 <script language="javascript">
     raizDirectorio="<?=$rutaExplorar;?>";
     $(document).ready(function (){
@@ -42,107 +45,13 @@
     
     window.onresize=redimensionarPag;
     
-    function abrirDirectorio(path){        
-        $("#ubicacionDirectorios").html(path);
-	$("#hdnRutaActual").attr("value",path);
-        ajaxApp("browserArchivos","controlador.php","action=abrirDirectorio&path="+path,"POST");
-	$('#btnAtras').show();
-    }
-    
-    function actualizarDirectorio(path){
-	ocultarVistaPrevia();
-        $("#ubicacionDirectorios").html(path);
-	$("#hdnRutaActual").attr("value",path);
-        ajaxApp("browserArchivos","auxVisor.php","action=abrirDirectorio&path="+path,"POST");	
-    }
-    
     function cerrarVistaPrevia(){
 	pathActual=$("#hdnRutaActual").val();//se recupera la ruta actual	
 	actualizarDirectorio(pathActual);
     }
+
     
-    function crearDirectorio(){
-	var directorio=prompt("Introduzca el nombre del Directorio a Crear");
-	if(directorio=="" || directorio == null || directorio==undefined){
-	    alert("Verifique la informacion proporcionada e intentelo de nuevo");
-	}else{
-	    pathActual=$("#hdnRutaActual").val();
-	    //alert("action=crearDir&nombreDir="+directorio+"&path="+pathActual);
-	    ajaxApp("browserArchivos","auxVisor.php","action=crearDir&nombreDir="+directorio+"&path="+pathActual,"POST");
-	}
-	return false;
-    }
-    
-    function retrocederDirectorio(){
-	rutaActual=$("#hdnRutaActual").val();
-	//alert(rutaActual);
-	ajaxApp("browserArchivos","auxVisor.php","action=retrocederDirectorio&raizDirectorio="+raizDirectorio+"&rutaActual="+rutaActual,"POST");
-    }
-    
-    function eliminaDirectorio(directorio){
-	if(confirm("Realmente desea ELIMINAR: "+directorio)){
-	    rutaActual=$("#hdnRutaActual").val();
-	    ajaxApp("browserArchivos","auxVisor.php","action=eliminaDir&directorioEliminar="+directorio+"&rutaActual="+rutaActual,"POST");
-	}else{
-	    alert("Opcion invalida");
-	}
-    }
-    
-    function renombrarDirectorio(directorio,idInput,idEnlace){
-	$("#"+idEnlace).hide();
-	$("#"+idInput).show();
-	$("#"+idInput).focus();	
-    }
-    
-    function guardarNuevoNombreDir(directorio,idInput,idEnlace,evento){
-	if(evento.which==13){
-	    //se recupera el nuevo nombre
-	    nuevoNombre=$("#"+idInput).val();
-	    rutaActual=$("#hdnRutaActual").val();
-	    opciones="action=renombrarDirectorio&directorio="+directorio+"&idInput="+idInput+"&idEnlace="+idEnlace+"&nuevoNombre="+nuevoNombre+"&rutaActual="+rutaActual;
-	    ajaxApp("browserArchivos","auxVisor.php",opciones,"POST");
-	    finEditarContenido();
-	}	
-    }
-    
-    function editarContenido(){
-	cantEditar=parseInt($("#hdnCantElementos").val());
-	for(i=0;i<cantEditar;i++){
-	    divEditar="#divEditar"+i;
-	    $(divEditar).show();
-	}
-	$("#btnEditar1").hide();
-	$("#btnEditar2").show();	
-    }
-    
-    function finEditarContenido(){
-        cantEditar=parseInt($("#hdnCantElementos").val());
-	for(i=0;i<cantEditar;i++){
-	    divEditar="#divEditar"+i;
-	    inEditar="#inputEditar"+i;
-	    $(divEditar).hide();
-	    $(inEditar).hide();
-	}
-        $("#btnEditar2").hide();        
-        $("#btnEditar1").show();
-	cerrarVistaPrevia();
-    }
-    
-    function mostrarFormSubirArchivos(){
-        rutaActual=$("#hdnRutaActual").val();
-        $("#subirArchivos").show();
-        ajaxApp("detalleSubirArchivos","auxVisor.php","action=mostrarFormArchivos&rutaActual="+rutaActual,"POST");
-    }
-    
-    function eliminarArchivo(archivo){
-	if(confirm("Realmente desea ELIMINAR: "+archivo)){
-	    rutaActual=$("#hdnRutaActual").val();
-	    ajaxApp("browserArchivos","auxVisor.php","action=eliminaFile&archivoEliminar="+archivo+"&rutaActual="+rutaActual,"POST");
-	}else{
-	    alert("Opcion invalida");
-	}
-    }
-    
+        
     function mostrarArchivo(path){        
 	$("#browserArchivos").hide();
 	$("#vistaPreviaArchivo").show();
@@ -150,7 +59,7 @@
 	$("#btnVistaPrevia").show();
     }
     
-    function ajaxApp(divDestino,url,parametros,metodo){	
+    /*function ajaxApp(divDestino,url,parametros,metodo){	
 	$.ajax({
 	async:true,
 	type: metodo,
@@ -168,7 +77,7 @@
 	timeout:90000000,
 	error:function() { $("#"+divDestino).show().html('<center>Error: El servidor no responde. <br>Por favor intente mas tarde. </center>'); }
 	});
-    }
+    }*/
     
     function cerrarVentanaSubirArchivos(){
         rutaActual=$("#hdnRutaActual").val();
@@ -181,27 +90,6 @@
 	$("#btnVistaPrevia").hide();
     }
 </script>
-<style>
-    body{margin: 0px;font-family:Geneva, Verdana, sans-serif;font-size: 12px;height: 100%;overflow: hidden;}
-    .estiloListadoDirectorios{font-size: 10px;border-bottom: 1px solid #f0f0f0;width: auto;margin: 4px;cursor: pointer;}
-    .estiloListadoDirectorios , a {text-decoration: none;color:blue;}
-    .estiloListadoDirectorios:hover{}
-    .estiloNuevaCarpeta{float: left;width:90px;background: #f0f0f0;height: 15px;padding: 5px;margin-left: 4px;border: 1px solid #CCC;padding: 5px;text-align: center;font-size: 10px;}
-    .estiloNuevaCarpeta:hover{background: #FFF;cursor: pointer;}
-    #cargadorAcciones{font-weight: bold;z-index: 200;background: #F2F5B7;border: 1px solid #FF4000;top: 50%;left: 50%;margin-left: -100px;margin-top: -15px;position: absolute;width: 200px;height: 20px;padding: 10px;}
-    .estiloAtras{float: left;width:50px;background: #f0f0f0;height: 15px;padding: 5px;margin-left: 4px;border: 1px solid #CCC;padding: 5px;text-align: center;font-size: 10px;}
-    .estiloAtras:hover{background: #FFF;cursor: pointer;}
-    .estiloEditar{float: left;width:90px;background: #f0f0f0;height: 15px;padding: 5px;margin-left: 4px;border: 1px solid #CCC;padding: 5px;text-align: center;font-size: 10px;}
-    .estiloEditar:hover{background: #FFF;cursor: pointer;}
-    .estiloEditarActivo{float: left;width:90px;background: #ff0000;height: 15px;padding: 5px;margin-left: 4px;border: 1px solid #CCC;padding: 5px;text-align: center;font-size: 10px;color: #fFF;display: none;}
-    .estiloEditarActivo:hover{background: #FFF;color: #000;cursor: pointer;}
-    .estiloDivHerr{display: none;float: left;margin: 3px;border-bottom: 0px solid #CCC;width: 80px;height: 20px;text-align: center;}
-    .estiloDivHerr:hover{}
-    .estiloSubirArchivo{float: left;width:90px;background: #f0f0f0;height: 15px;padding: 5px;margin-left: 4px;border: 1px solid #CCC;padding: 5px;text-align: center;font-size: 10px;}
-    .estiloSubirArchivo:hover{background: #FFF;cursor: pointer;}
-    .estiloCerrarVistaPrevia{display: none;float: left;width:90px;color: #FFF;background: #ff0000;height: 15px;padding: 5px;margin-left: 4px;border: 1px solid #666;padding: 5px;font-weight: bold;text-align: center;font-size: 10px;}
-    .estiloCerrarVistaPrevia:hover{background: #FFF;color: #000;cursor: pointer;}
-</style>
 <input type="hidden" name="hdnRutaActual" id="hdnRutaActual" value="" />
 <input type="hidden" name="hdnCantElementos" id="hdnCantElementos" value="" />
 <div id="cargadorAcciones">Aplicando cambios...</div>
@@ -224,9 +112,15 @@
 ?>
 	<div id="btnVistaPrevia" class="estiloCerrarVistaPrevia" style="width: auto;" onclick="cerrarVistaPrevia()">Cerrar Vista Previa</div>
     </div>
-    <div id="browserArchivos" style="margin: 0px 5px 5px 5px;width: 99.2%;border: 1px solid #CCC;background: #FFF;position: relative;overflow-x: auto;float: left;"></div>
-    <div id="propiedades" style="display: none;position: absolute;width: 307px;height: 300px;top: 68px;background: #F0F0F0;border: 1px solid #CCC;right: 5px;float: right;">
-    
+    <div id="browserArchivos" style="margin: 0px 5px 5px 5px;width: 99.2%;border: 1px solid #CCC;background: #FFF;position: relative;overflow-x: auto;float: left;">
+	
+    </div>
+    <div id="propiedades" style="display: none;position: absolute;width: 28.5%;height: 300px;top: 68px;background: #F0F0F0;border: 1px solid #CCC;right: 5px;float: right;">
+	<div style="background: #FFF;height: 15px;padding: 5px;text-align: left;color: #666;font-weight: bold;">&raquo;Acciones sobre la carpeta</div>
+	<div style="border: 1px solid #CCC;background: #FFF;width: 96.5%;height: 90%;margin: 5px;">
+	    <div style="height: 15px;padding: 5px;margin: 5px;">&raquo;&nbsp;Renombrar</div>
+	    <div style="height: 15px;padding: 5px;margin: 5px;">&raquo;&nbsp;Eliminar</div>
+	</div>
     </div>
     <iframe id="vistaPreviaArchivo" style="display: none;margin: 0px 5px 5px 5px;width: 99.2%;border: 1px solid #CCC;background: #F0F0F0;position: relative;overflow-x: auto;"></iframe>
 </div>

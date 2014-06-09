@@ -57,51 +57,51 @@
         }
     }
     
-    function eliminarDirectorio($directorio,$rutaActual){
-	//se escanea el directorio
-	$carpeta = @scandir($rutaActual."/".$directorio);
-	if (count($carpeta) > 2){
-	    echo "El directorio contiene Archivos, verifique la informacion";
-	}else{
-	    if(rmdir($rutaActual."/".$directorio)){
-		echo "<script type='text/javascript'> abrirDirectorio('".$rutaActual."'); </script>";
-	    }else{
-		echo "<script type='text/javascript'> alert('Error al ejecutar la operacion'); </script>";
-	    }
-	}
-    }
+//    function eliminarDirectorio($directorio,$rutaActual){
+//	//se escanea el directorio
+//	$carpeta = @scandir($rutaActual."/".$directorio);
+//	if (count($carpeta) > 2){
+//	    echo "El directorio contiene Archivos, verifique la informacion";
+//	}else{
+//	    if(rmdir($rutaActual."/".$directorio)){
+//		echo "<script type='text/javascript'> abrirDirectorio('".$rutaActual."'); </script>";
+//	    }else{
+//		echo "<script type='text/javascript'> alert('Error al ejecutar la operacion'); </script>";
+//	    }
+//	}
+//    }
     
-    function retrocederDirectorio($raizDirectorio,$rutaActual){	
-	$rutaActual=explode("/",$rutaActual);	
-	$totalPosiciones=count($rutaActual);
-	$nuevaRuta="";
-	for($i=0;$i<($totalPosiciones-1);$i++){
-	    if($nuevaRuta==""){
-		$nuevaRuta=$rutaActual[$i];
-	    }else{
-		$nuevaRuta=$nuevaRuta."/".$rutaActual[$i];
-	    }	    
-	}	
-	if($nuevaRuta!=$raizDirectorio){
-	    echo "<script type='text/javascript'> abrirDirectorio('".$nuevaRuta."'); </script>";
-	}else if($nuevaRuta==$raizDirectorio){
-	    echo "<script type='text/javascript'> abrirDirectorio('".$raizDirectorio."'); $('#btnAtras').hide();</script>";
-	}
-    }
+//    function retrocederDirectorio($raizDirectorio,$rutaActual){	
+//	$rutaActual=explode("/",$rutaActual);	
+//	$totalPosiciones=count($rutaActual);
+//	$nuevaRuta="";
+//	for($i=0;$i<($totalPosiciones-1);$i++){
+//	    if($nuevaRuta==""){
+//		$nuevaRuta=$rutaActual[$i];
+//	    }else{
+//		$nuevaRuta=$nuevaRuta."/".$rutaActual[$i];
+//	    }	    
+//	}	
+//	if($nuevaRuta!=$raizDirectorio){
+//	    echo "<script type='text/javascript'> abrirDirectorio('".$nuevaRuta."'); </script>";
+//	}else if($nuevaRuta==$raizDirectorio){
+//	    echo "<script type='text/javascript'> abrirDirectorio('".$raizDirectorio."'); $('#btnAtras').hide();</script>";
+//	}
+//    }
     
-    function crearDirectorio($nombredir,$path){
-	strip_tags($nombredir);
-	$directorioNuevo=$path."/".strtoupper($nombredir);
-	if (file_exists($directorioNuevo)){
-	    echo "<script type='text/javascript'> alert('La carpeta ya existe'); </script>";
-	}else{
-	    if(mkdir($directorioNuevo, 0777)){
-		echo "<script type='text/javascript'> abrirDirectorio('".$path."'); $('#btnAtras').hide();</script>";		
-	    }else{
-		echo "<script type='text/javascript'> alert('Error al crear el directorio, verifique la informacion'); </script>";
-	    }
-	}
-    }
+//    function crearDirectorio($nombredir,$path){
+//	strip_tags($nombredir);
+//	$directorioNuevo=$path."/".strtoupper($nombredir);
+//	if (file_exists($directorioNuevo)){
+//	    echo "<script type='text/javascript'> alert('La carpeta ya existe'); </script>";
+//	}else{
+//	    if(mkdir($directorioNuevo, 0777)){
+//		echo "<script type='text/javascript'> abrirDirectorio('".$path."'); $('#btnAtras').hide();</script>";		
+//	    }else{
+//		echo "<script type='text/javascript'> alert('Error al crear el directorio, verifique la informacion'); </script>";
+//	    }
+//	}
+//    }
     
     function mostrarContenidoDirectorio($path){			
 	try{
