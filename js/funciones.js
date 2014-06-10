@@ -32,7 +32,7 @@ function escribirContenido(datos){
             path=pathActual+"/"+valores[2];
             if(valores[0]=="dir"){//se arman las funciones para las vistas previas o abrir elementos
                 nombreFuncion="<div class='contenedorFile' onclick='abrirDirectorio(\""+path+"\")'>";
-                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='if(this.checked==true){seleccionarCheck(this.id)}else{}' /><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
+                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='if(this.checked==true){seleccionarCheck(this.id,\""+valores[2]+"\")}else{quitarSeleccionCheck(this.id,\""+valores[2]+"\")}' /><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
 		listadoDirectoriosActual.push(valores[2]);
             }else{
                 nombreFuncion="<div class='contenedorFile' onclick='mostrarArchivo(\""+path+"\")'>";
@@ -93,27 +93,42 @@ function retrocederDirectorio(){
     ajaxAppExplorador("retrocederDirectorio","controlador.php","action=retrocederDirectorio&raizDirectorio="+raizDirectorio+"&rutaActual="+rutaActual,"POST");
 }
 var contenidoM=new Array();//array para elementos seleccionados
-function seleccionarCheck(idElemento){
-    //alert(idElemento);
-    
-    contenidoM.push($("#"+idElemento).val());
+function seleccionarCheck(idElemento,elemento){
+    contenidoM.push(elemento);
     $("#browserArchivos").css("width","60%");//se cambia de tamaño el div de los archivos
     $("#propiedades").show();
     $("#propiedades").css("width","39%");
     $("#txtPropiedades").html("&raquo;Mover elementos seleccionados");
     $("#subirArchivos2").html("");
-    var comboMover="<div style='height:55px;padding:5px;border:1px solid #CCC;'>Seleccionar destino:&nbsp;";
-    comboMover+="<select name='' id=''><option value='' selected='selected'>Seleccionar ...</option>";
+    var comboMover="<div style='height:130px;padding:5px;border:1px solid #CCC;'><span class='clase14'>Que desea hacer?</span><br /><br />";
+    comboMover+="Acci&oacute;n:&nbsp;<select name='' id=''><option value='...' selected='selected'>Seleccionar ...</option><option value='copiar'>Copiar</option><option value='mover'>Mover</option></select><br />";
+    comboMover+="&nbsp;Seleccionar destino:&nbsp;";
+    comboMover+="<select name='cboFiltroMover' id='cboFiltroMover'><option value='...' selected='selected'>Seleccionar ...</option>";
     for(var j=0;j<listadoDirectoriosActual.length;j++){
-	//$("#subirArchivos2").append("<div class='elementosSeleccionados'>"+listadoDirectoriosActual[j]+"</div>");
 	comboMover+="<option value='"+listadoDirectoriosActual[j]+"'>"+listadoDirectoriosActual[j]+"</option>";
     }
     comboMover+="</select>&nbsp;&nbsp;&nbsp;<input type='button' value='Mover...' onclick='moverArchivos()' /><br /><br />Archivos seleccionados:<br /></div>";
     
     $("#subirArchivos2").append(comboMover);
     for(var i=0;i<contenidoM.length;i++){
-	divMover="divMover_"+i;
+	divMover="divMover_"+contenidoM[i];
 	$("#subirArchivos2").append("<div id='"+divMover+"' class='elementosSeleccionados'>"+contenidoM[i]+"</div>");
+    }
+}
+function quitarSeleccionCheck(idElemento,elemento){
+    console.log(idElemento);
+    console.log(contenidoM);
+    idABorrar = contenidoM.indexOf(elemento.toString());
+    console.log(idABorrar);
+    if(idABorrar != -1){//se borra el elemento del array
+	contenidoM.splice(idABorrar, 1);//se quita el elemento del array
+	//se localiza el div y se borra de los elementos a mover
+	divABorrar="divMover_"+elemento;
+	console.log(divABorrar);
+	if($("#"+divABorrar).length){
+	    $("#"+divABorrar).remove();
+	}
+	console.log(contenidoM);
     }
 }
 function listarDirectoriosMover() {
@@ -197,4 +212,17 @@ function cerrarVentanaSubirArchivos(){
     $("#propiedades").hide();
     $("#browserArchivos").css("width","99.2%");
     actualizarDirectorio(rutaActual);
+    finEditarContenido();
+}
+function moverArchivos(){
+    //se recupera el contenido del combo que contiene el filtro
+    directorioDestino=$("#cboFiltroMover").val();
+    if (directorioDestino=="..." || directorioDestino==null || directorioDestino==undefined) {
+	alert("Seleccione el directorio a donde desea que se muevan/copien los archivos seleccionados.");
+    }else{
+	$("#subirArchivos2 .elementosSeleccionados").each(function (index) {
+	    id=this.id;
+	    console.log(id);
+	});
+    }
 }
