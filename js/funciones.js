@@ -32,14 +32,14 @@ function escribirContenido(datos){
             path=pathActual+"/"+valores[2];
             if(valores[0]=="dir"){//se arman las funciones para las vistas previas o abrir elementos
                 nombreFuncion="<div class='contenedorFile' onclick='abrirDirectorio(\""+path+"\")'>";
-                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
+                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='if(this.checked==true){seleccionarCheck(this.id)}else{}' /><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
 		listadoDirectoriosActual.push(valores[2]);
             }else{
                 nombreFuncion="<div class='contenedorFile' onclick='mostrarArchivo(\""+path+"\")'>";
                 funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminarArchivo(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")'  title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
             }
             //funcionRenombrar="<div id='"+idNombre+"' class='nombreFileDir'>"+valores[2]+"</div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /></div>";
-	    //<input name="<?=$name;?>" id="<?=$name;?>" type="checkbox" onClick="if(this.checked == true){totalizar(<?=$row1['unicantidad'];?>)} else{restarTotal(<?=$row1['unicantidad'];?>)}"
+	    //<input name="" id="" type="checkbox" onClick="if(this.checked == true){totalizar(<?=$row1['unicantidad'];?>)} else{restarTotal(<?=$row1['unicantidad'];?>)}"
             if (valores[2].length > 16) {
 		nombreFileDir=valores[2].substring(0,13)+"...";
 	    }else{
