@@ -36,9 +36,10 @@ function escribirContenido(datos){
 		listadoDirectoriosActual.push(valores[2]);
             }else{
                 nombreFuncion="<div class='contenedorFile' onclick='mostrarArchivo(\""+path+"\")'>";
-                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminarArchivo(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",,\""+boton+"\")'  title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
+                funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminarArchivo(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")'  title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
             }
-            funcionRenombrar="<div id='"+idNombre+"' class='nombreFileDir'>"+valores[2]+"</div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /></div>";
+            //funcionRenombrar="<div id='"+idNombre+"' class='nombreFileDir'>"+valores[2]+"</div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /></div>";
+	    //<input name="<?=$name;?>" id="<?=$name;?>" type="checkbox" onClick="if(this.checked == true){totalizar(<?=$row1['unicantidad'];?>)} else{restarTotal(<?=$row1['unicantidad'];?>)}"
             if (valores[2].length > 16) {
 		nombreFileDir=valores[2].substring(0,13)+"...";
 	    }else{
@@ -101,16 +102,18 @@ function seleccionarCheck(idElemento){
     $("#propiedades").css("width","39%");
     $("#txtPropiedades").html("&raquo;Mover elementos seleccionados");
     $("#subirArchivos2").html("");
-    var comboMover="<select name='' id=''><option value='' selected='selected'>Seleccionar destino...</option>";
+    var comboMover="<div style='height:55px;padding:5px;border:1px solid #CCC;'>Seleccionar destino:&nbsp;";
+    comboMover+="<select name='' id=''><option value='' selected='selected'>Seleccionar ...</option>";
     for(var j=0;j<listadoDirectoriosActual.length;j++){
 	//$("#subirArchivos2").append("<div class='elementosSeleccionados'>"+listadoDirectoriosActual[j]+"</div>");
 	comboMover+="<option value='"+listadoDirectoriosActual[j]+"'>"+listadoDirectoriosActual[j]+"</option>";
     }
-    comboMover+="</select>";
-    $("#subirArchivos2").append("-------");
+    comboMover+="</select>&nbsp;&nbsp;&nbsp;<input type='button' value='Mover...' onclick='moverArchivos()' /><br /><br />Archivos seleccionados:<br /></div>";
+    
     $("#subirArchivos2").append(comboMover);
     for(var i=0;i<contenidoM.length;i++){
-	$("#subirArchivos2").append("<div class='elementosSeleccionados'>"+contenidoM[i]+"</div>");
+	divMover="divMover_"+i;
+	$("#subirArchivos2").append("<div id='"+divMover+"' class='elementosSeleccionados'>"+contenidoM[i]+"</div>");
     }
 }
 function listarDirectoriosMover() {
