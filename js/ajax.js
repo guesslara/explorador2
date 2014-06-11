@@ -71,5 +71,8 @@ function controladorAcciones(accion,datos){
 	    $("#subirArchivos2").html("");
 	    $("#subirArchivos2").append(frame);
 	break;
+	case "accionesArchivos":
+	    alert(datos);
+	break;
     }
 }

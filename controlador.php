@@ -71,5 +71,15 @@
         case "mostrarFormArchivos":
             echo $rutaActual=trim($_POST["rutaActual"]);
         break;
+        case "accionesArchivos":
+            $operacion=$_POST["operacion"];
+            $destino=$_POST["destino"];
+            $archivosA=$_POST["archivosA"];
+            $rutaActual=$_POST["rutaActual"];
+            if($operacion=="copiar"){
+                $resultado=$obJFunciones->copiarArchivos($archivosA,$destino,$rutaActual);    
+            }
+            echo $resultado;
+        break;
     }
 ?>

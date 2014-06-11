@@ -33,7 +33,7 @@ Estilos generales
 /*div propiedades*/
 #propiedades{display: none;position: absolute;width: 28.5%;height: 300px;top: 68px;background: #F0F0F0;border: 1px solid #CCC;right: 5px;float: right;}
 #txtPropiedades{background: #FFF;height: 15px;padding: 5px;text-align: left;color: #666;font-weight: bold;}
-#subirArchivos2{border: 1px solid #CCC;background: #FFF;width: 96.5%;height: 85%;margin: 5px;}
+#subirArchivos2{border: 1px solid #CCC;background: #FFF;width: 96.5%;height: 85%;margin: 5px;overflow: auto;}
 #divBtnCerrar{border: 1px solid #ccc;background: #fff;width: 94.5%;height: 26px;padding: 5px;margin: 5px;text-align: right;}
 #btnCerrarVentana{background: #ff0000;color: #FFF;height: 25px;padding: 5px;}
 

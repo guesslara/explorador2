@@ -4,6 +4,7 @@
 var path="" ;
 var nombreFuncion="";
 var listadoDirectoriosActual=new Array();
+var contenidoM=new Array();//array para elementos seleccionados
 function actualizarDirectorio(path){
     ocultarVistaPrevia();
     $("#ubicacionDirectorios").html(path);
@@ -92,7 +93,7 @@ function retrocederDirectorio(){
     //ajaxApp("browserArchivos","auxVisor.php","action=retrocederDirectorio&raizDirectorio="+raizDirectorio+"&rutaActual="+rutaActual,"POST");
     ajaxAppExplorador("retrocederDirectorio","controlador.php","action=retrocederDirectorio&raizDirectorio="+raizDirectorio+"&rutaActual="+rutaActual,"POST");
 }
-var contenidoM=new Array();//array para elementos seleccionados
+
 function seleccionarCheck(idElemento,elemento){
     contenidoM.push(elemento);
     $("#browserArchivos").css("width","60%");//se cambia de tamaño el div de los archivos
@@ -101,8 +102,8 @@ function seleccionarCheck(idElemento,elemento){
     $("#txtPropiedades").html("&raquo;Mover elementos seleccionados");
     $("#subirArchivos2").html("");
     var comboMover="<div style='height:130px;padding:5px;border:1px solid #CCC;'><span class='clase14'>Que desea hacer?</span><br /><br />";
-    comboMover+="Acci&oacute;n:&nbsp;<select name='' id=''><option value='...' selected='selected'>Seleccionar ...</option><option value='copiar'>Copiar</option><option value='mover'>Mover</option></select><br />";
-    comboMover+="&nbsp;Seleccionar destino:&nbsp;";
+    comboMover+="&nbsp;Acci&oacute;n:&nbsp;<select name='cboAccion' id='cboAccion'><option value='...' selected='selected'>Seleccionar ...</option><option value='copiar'>Copiar</option><option value='mover'>Mover</option></select><br />";
+    comboMover+="<br />&nbsp;Seleccionar destino:&nbsp;";
     comboMover+="<select name='cboFiltroMover' id='cboFiltroMover'><option value='...' selected='selected'>Seleccionar ...</option>";
     for(var j=0;j<listadoDirectoriosActual.length;j++){
 	comboMover+="<option value='"+listadoDirectoriosActual[j]+"'>"+listadoDirectoriosActual[j]+"</option>";
@@ -216,13 +217,26 @@ function cerrarVentanaSubirArchivos(){
 }
 function moverArchivos(){
     //se recupera el contenido del combo que contiene el filtro
+    accionARealizar=$("#cboAccion").val();
     directorioDestino=$("#cboFiltroMover").val();
-    if (directorioDestino=="..." || directorioDestino==null || directorioDestino==undefined) {
-	alert("Seleccione el directorio a donde desea que se muevan/copien los archivos seleccionados.");
+    pathActual=$("#hdnRutaActual").val();
+    if (directorioDestino=="..." || directorioDestino==null || directorioDestino==undefined || accionARealizar=="..." || accionARealizar==null || accionARealizar==undefined) {
+	alert("Seleccione la Accion a realizar y despues elija el directorio destino.");
     }else{
+	archivosA="";
 	$("#subirArchivos2 .elementosSeleccionados").each(function (index) {
 	    id=this.id;
-	    console.log(id);
+	    //console.log(id.substring(9));
+	    if(archivosA==""){
+		archivosA=id.substring(9);
+	    }else{
+		archivosA+=","+id.substring(9);
+	    }
 	});
+	destino=pathActual+"/"+directorioDestino;
+	//archivosB=archivosA;
+	console.log(destino);
+	console.log(archivosA);
+	ajaxAppExplorador("accionesArchivos","controlador.php","action=accionesArchivos&operacion="+accionARealizar+"&destino="+destino+"&archivosA="+archivosA+"&rutaActual="+pathActual,"POST");
     }
 }

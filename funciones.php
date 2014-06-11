@@ -9,10 +9,28 @@ class funciones{
     
     private $path;
     /*
+     *@method   Funcion para copiar archivos y/o directorios
+     *@return   resultado de la operacion
+    */
+    public function copiarArchivos($archivosA,$destino,$rutaActual){
+        $archivosA=explode(",",$archivosA);
+        $mensaje="";
+        for($i=0;$i<count($archivosA);$i++){
+            $archivo=$rutaActual."/".$archivosA[$i];
+            $resultado=rename($archivo,$destino);
+            if($resultado){//si la copia se efectuo
+                $mensaje.="1";
+            }else{//si ocurrio algun error
+                $mensaje.="0";
+            }
+        }
+        //return $mensaje;
+    }
+    /*
      *@method   Funcion para renombrar archivos y/o directorios
      *@return   resultado de la operacion
     */
-    function renombrarDirectorio($directorio,$idInput,$idEnlace,$nuevoNombre,$rutaActual){
+    public function renombrarDirectorio($directorio,$idInput,$idEnlace,$nuevoNombre,$rutaActual){
 	if(file_exists($rutaActual."/".$nuevoNombre)){
             $resultado="%%%%";
         }else{
