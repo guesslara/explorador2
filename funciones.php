@@ -14,15 +14,31 @@ class funciones{
     */
     public function copiarArchivos($archivosA,$destino,$rutaActual){
         $archivosA=explode(",",$archivosA);
-        $mensaje="";
+        $resultado="";
         for($i=0;$i<count($archivosA);$i++){
             $archivo=$rutaActual."/".$archivosA[$i];
-            $this->copia($archivo,$destino);
+            //$this->copia($archivo,$destino);
+	    if(is_dir($archivo)){//en caso de que sea directorio
+		//se verifica su existencia en la carpeta destino
+		if(file_exists($destino."/".$archivosA[$i])){//en caso de existir mandar una advertencia de sobreescritura
+		    $resultado="%%%%";
+		}else{//el directorio no existe, se procede a su creacion
+		    $resultado=$this->crearDirectorio($archivosA[$i],$destino);
+		    if($resultado==1){
+			$resultado="Copia Realizada";
+		    }
+		}
+	    }else{//en caso de que sea archivo
+		$resultado="ARCHIVO";
+	    }
         }
-        //return $mensaje;
+        return $resultado;
     }
     
     //Recojo el valor de donde copio y donde tengo que copiar
+    /*
+     *Funcion para copiar de manera recursiva esta funcion esta en prueba
+    */
     function copia($dirOrigen, $dirDestino){
 	//Creo el directorio destino
 	mkdir($dirDestino, 0777, true);

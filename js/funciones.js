@@ -157,6 +157,12 @@ function finEditarContenido(){
     $("#btnEditar2").hide();        
     $("#btnEditar1").show();
     cerrarVistaPrevia();
+    //se revisa si el arreglo de los directorios seleccionados contiene datos
+    if (contenidoM.length > 0) {
+	contenidoM=[];
+	cerrarVentanaSubirArchivos();
+    }
+    
 }
 function eliminaDirectorio(directorio){
     if(confirm("Realmente desea ELIMINAR: "+directorio)){
