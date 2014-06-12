@@ -10,7 +10,7 @@ function ajaxAppExplorador(accion,url,parametros,metodo){
 	url:url,
 	data:parametros,
 	beforeSend:function(){ 
-	    $("#cargadorAcciones").show().html("Cargando grupos..."); 
+	    $("#cargadorAcciones").show().html("Actualizando informacion..."); 
 	},
 	success:function(datos){ 
 	    $("#cargadorAcciones").hide();
