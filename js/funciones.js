@@ -78,8 +78,8 @@ function crearDirectorio(){
 }
 function mensajes(accion,datos){
     if(accion=="crearDir" && datos=="1"){//creado
-        //alert("Directorio creado");
-        actualizarDirectorio();
+        alert("Directorio creado");
+        //actualizarDirectorio();
     }else if(accion=="crearDir" && datos=="0"){//error al crear el directorio
         alert("Error, al crear el directorio indicado");
     }else if(accion=="crearDir" && datos=="11"){
