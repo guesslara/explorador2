@@ -50,6 +50,8 @@ Estilos generales
 
 /*Estilos para los archivos*/
 .contenedorArchivo{float: left;border: 1px solid #ff0000;margin: 5px;}
+/*Estilo para cuando se van seleccionando las carpetas y/o archivos*/
+.contenedorArchivoSeleccionado{float: left;border: 1px solid #ff0000;margin: 5px;background: #F0F0F0;}
 .limiteCarpeta{width: 65px;height: auto;border: 1px solid #FF0000;margin: 5px;}
 
 .checkFile{border: 1px solid #000;position: relative;width: 63px;height: 19px;display: none;}
