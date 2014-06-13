@@ -1,0 +1,9 @@
+#
+# Ficheros generados por el SO
+#
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+
+#directorio donde se crean directorios
+documentos
