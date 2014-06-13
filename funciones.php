@@ -178,7 +178,7 @@ class funciones{
                 if (count($carpeta) > 2){
                     $i=0; 
 		    while ($archivo = $directorio->read()){		    
-			if($archivo != "." && $archivo != ".."){
+			if($archivo != "." && $archivo != ".." && $archivo != ".DS_Store"){
                             $finfo = finfo_open(FILEINFO_MIME_TYPE);
                             $contenidoDir[$i][0]=filetype($path."/".$archivo);//tipo de archivo;
                             $contenidoDir[$i][1]=finfo_file($finfo,$path."/".$archivo);
