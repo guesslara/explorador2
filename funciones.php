@@ -17,7 +17,6 @@ class funciones{
         $resultado="";
         for($i=0;$i<count($archivosA);$i++){
             $archivo=$rutaActual."/".$archivosA[$i];
-            //$this->copia($archivo,$destino);
 	    if(is_dir($archivo)){//en caso de que sea directorio
 		//se verifica su existencia en la carpeta destino
 		if(file_exists($destino."/".$archivosA[$i])){//en caso de existir mandar una advertencia de sobreescritura

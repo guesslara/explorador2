@@ -45,7 +45,7 @@ function controladorAcciones(accion,datos){
                 alert("Error al ejecutar la operacion");
             }else{
                 alert("Directorio Eliminado");
-                abrirDirectorio(datos);
+                actualizarDirectorio(datos);
                 finEditarContenido();
             }
         break;

@@ -49,16 +49,19 @@ Estilos generales
 
 
 /*Estilos para los archivos*/
-.contenedorArchivo{float: left;border: 1px solid #ff0000;margin: 5px;}
+.contenedorArchivo{float: left;border: 0px solid #ff0000;margin: 5px;}
 /*Estilo para cuando se van seleccionando las carpetas y/o archivos*/
 .contenedorArchivoSeleccionado{float: left;border: 1px solid #ff0000;margin: 5px;background: #F0F0F0;}
-.limiteCarpeta{width: 65px;height: auto;border: 1px solid #FF0000;margin: 5px;}
+.limiteCarpeta{width: 65px;height: auto;border: 0px solid #FF0000;margin: 5px;}
 
-.checkFile{border: 1px solid #000;position: relative;width: 63px;height: 19px;display: none;}
-.contenedorFile{border: 1px solid blue;position: relative;width: 63px;height: 42px;}
+.checkFile{border: 1px solid #CCC;background: #F0F0F0;position: relative;width: 63px;height: 19px;display: none;}
+.contenedorFile{border: 0px solid blue;position: relative;width: 63px;height: 42px;}
 .contenedorFile:hover{background: #e1e1e1;cursor: pointer;}
-.imagenFile{margin: 3px;width: 55px;height: 33px;border: 1px solid green;}
-.nombreFileDir{border: 1px solid #ff0000;margin: 3px;width: auto;height: auto;text-align: center;font-size: 10px;}
+/*imagen para la carpeta*/
+.imagenFile{margin: 3px;width: 55px;height: 33px;border: 0px solid green;background: url(../img/documentsEmpty3.png) no-repeat center;text-align: center;}
+/*imagen para los archivos*/
+.imagenFileArchivo{margin: 3px;width: 55px;height: 33px;border: 1px solid green;text-align: center;}
+.nombreFileDir{border: 0px solid #ff0000;margin: 3px;width: auto;height: auto;text-align: center;font-size: 10px;}
 
 
 /*imagenes*/

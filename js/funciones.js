@@ -32,10 +32,12 @@ function escribirContenido(datos){
             pathActual=$("#hdnRutaActual").val();
             path=pathActual+"/"+valores[2];
             if(valores[0]=="dir"){//se arman las funciones para las vistas previas o abrir elementos
+		cssImagen="imagenFile";
                 nombreFuncion="<div class='contenedorFile' onclick='abrirDirectorio(\""+path+"\")'>";
                 funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='if(this.checked==true){seleccionarCheck(this.id,\""+valores[2]+"\")}else{quitarSeleccionCheck(this.id,\""+valores[2]+"\")}' /><a href='#' onclick='eliminaDirectorio(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")' title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
 		      listadoDirectoriosActual.push(valores[2]);
             }else{
+		cssImagen="imagenFileArchivo";
                 nombreFuncion="<div class='contenedorFile' onclick='mostrarArchivo(\""+path+"\")'>";
                 funcionEliminar="<div id='"+divOpciones+"' class='checkFile'><input type='checkbox' value='"+valores[2]+"' name='chkFiles' id='"+chk+"' style='margin-left: 3px;' onclick='seleccionarCheck(this.id)' /><a href='#' onclick='eliminarArchivo(\""+valores[2]+"\")' title='Eliminar'><img src='./img/icon_delete.gif' class='imgCarpetasFiles' border='0' /></a>&nbsp;&nbsp;<a href='#' onclick='renombrarDirectorio(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+boton+"\")'  title='Renombrar'><img src='./img/duplicate.png' class='imgCarpetasFiles' border='0' /></a></div>";
             }
@@ -52,7 +54,7 @@ function escribirContenido(datos){
             elemento+="<div class='limiteCarpeta'>";
             elemento+=funcionEliminar;
             elemento+=nombreFuncion;
-            elemento+="<div class='imagenFile'></div>";
+            elemento+="<div class='"+cssImagen+"'></div>";
             elemento+="</div>";
             elemento+="</div>";
             elemento+="<div class='nombreFileDir'><span id='"+idNombre+"' title='"+valores[2]+"'>"+nombreFileDir+"</span></div><div id='"+div+"'><input type='text' name='"+txt+"' id='"+txt+"' value='"+valores[2]+"' style='display:none;' /><input type='button' id='"+boton+"' value='Guardar...' onclick='guardarNuevoNombreDir(\""+valores[2]+"\",\""+txt+"\",\""+idNombre+"\",\""+evento+"\")' style='display:none;' /></div>";
@@ -78,15 +80,15 @@ function crearDirectorio(){
 }
 function mensajes(accion,datos){
     if(accion=="crearDir" && datos=="1"){//creado
-        alert("Directorio creado");
-        //actualizarDirectorio();
+        //alert("Directorio creado");
+        pathActual=$("#hdnRutaActual").val();
+	actualizarDirectorio(pathActual);
     }else if(accion=="crearDir" && datos=="0"){//error al crear el directorio
         alert("Error, al crear el directorio indicado");
     }else if(accion=="crearDir" && datos=="11"){
         alert("La carpeta ya existe en el directorio");
     }
-    pathActual=$("#hdnRutaActual").val();
-    actualizarDirectorio(pathActual);
+    
 }
 function retrocederDirectorio(){
     rutaActual=$("#hdnRutaActual").val();    
