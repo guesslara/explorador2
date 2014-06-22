@@ -28,63 +28,8 @@
     $(document).ready(function (){
 	redimensionarPag();
         abrirDirectorio('<?=$rutaExplorar;?>','browserArchivos');
-	$('#btnAtras').hide();
+	   $('#btnAtras').hide();
     });
-    
-    function redimensionarPag(){
-            var altoDiv=$("#contenedorNavegadorArchivos").height();
-            var anchoDiv=$("#contenedorNavegadorArchivos").width();		
-            var altoCuerpo=altoDiv-75;
-            var anchoCuerpo=anchoDiv-13;
-            $("#browserArchivos").css("height",altoCuerpo+"px");            	
-            $("#browserArchivos").css("width",(anchoCuerpo)+"px");
-	    $("#vistaPreviaArchivo").css("height",altoCuerpo+"px");            	
-            $("#vistaPreviaArchivo").css("width",(anchoCuerpo)+"px");
-	    $("#propiedades").css("height",altoCuerpo+"px");
-    }
-    
-    window.onresize=redimensionarPag;
-    
-    function cerrarVistaPrevia(){
-	pathActual=$("#hdnRutaActual").val();//se recupera la ruta actual	
-	actualizarDirectorio(pathActual);
-    }
-
-    
-        
-    function mostrarArchivo(path){        
-	$("#browserArchivos").hide();
-	$("#vistaPreviaArchivo").show();
-	$("#vistaPreviaArchivo").attr("src",path);
-	$("#btnVistaPrevia").show();
-    }
-    
-    /*function ajaxApp(divDestino,url,parametros,metodo){	
-	$.ajax({
-	async:true,
-	type: metodo,
-	dataType: "html",
-	contentType: "application/x-www-form-urlencoded",
-	url:url,
-	data:parametros,
-	beforeSend:function(){ 
-		$("#cargadorAcciones").show().html("<p>Cargando...</p>"); 
-	},
-	success:function(datos){	
-		$("#cargadorAcciones").hide();
-		$("#"+divDestino).show().html(datos);
-	},
-	timeout:90000000,
-	error:function() { $("#"+divDestino).show().html('<center>Error: El servidor no responde. <br>Por favor intente mas tarde. </center>'); }
-	});
-    }*/
-    
-    
-    function ocultarVistaPrevia(){
-	$("#browserArchivos").show();
-	$("#vistaPreviaArchivo").hide();
-	$("#btnVistaPrevia").hide();
-    }
 </script>
 <input type="hidden" name="hdnRutaActual" id="hdnRutaActual" value="" />
 <input type="hidden" name="hdnCantElementos" id="hdnCantElementos" value="" />

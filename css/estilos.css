@@ -60,7 +60,7 @@ Estilos generales
 /*imagen para la carpeta*/
 .imagenFile{margin: 3px;width: 55px;height: 33px;border: 0px solid green;background: url(../img/documentsEmpty3.png) no-repeat center;text-align: center;}
 /*imagen para los archivos*/
-.imagenFileArchivo{margin: 3px;width: 55px;height: 33px;border: 1px solid green;text-align: center;}
+.imagenFileArchivo{margin: 3px;width: 55px;height: 35px;border: 0px solid green;text-align: center;background: url(../img/file.png) no-repeat center;}
 .nombreFileDir{border: 0px solid #ff0000;margin: 3px;width: auto;height: auto;text-align: center;font-size: 10px;}
 
 
