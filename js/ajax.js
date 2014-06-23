@@ -73,6 +73,9 @@ function controladorAcciones(accion,datos){
 	break;
 	case "accionesArchivos":
 	    alert(datos);
+        finEditarContenido();
+        pathActual=$("#hdnRutaActual").val();
+        actualizarDirectorio(pathActual);
 	break;
     }
 }

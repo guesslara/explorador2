@@ -17,19 +17,25 @@ class funciones{
         $resultado="";
         for($i=0;$i<count($archivosA);$i++){
             $archivo=$rutaActual."/".$archivosA[$i];
-	    if(is_dir($archivo)){//en caso de que sea directorio
-		//se verifica su existencia en la carpeta destino
-		if(file_exists($destino."/".$archivosA[$i])){//en caso de existir mandar una advertencia de sobreescritura
-		    $resultado="%%%%";
-		}else{//el directorio no existe, se procede a su creacion
-		    $resultado=$this->crearDirectorio($archivosA[$i],$destino);
-		    if($resultado==1){
-			$resultado="Copia Realizada";
-		    }
-		}
-	    }else{//en caso de que sea archivo
-		$resultado="ARCHIVO";
-	    }
+	       if(is_dir($archivo)){//en caso de que sea directorio
+		      //se verifica su existencia en la carpeta destino
+		      if(file_exists($destino."/".$archivosA[$i])){//en caso de existir mandar una advertencia de sobreescritura
+		          $resultado="%%%%";
+		      }else{//el directorio no existe, se procede a su creacion
+		          $resultado=$this->crearDirectorio($archivosA[$i],$destino);
+		          if($resultado==1){
+			         $resultado="Copia Realizada";
+		          }
+		      }
+	       }else{//en caso de que sea archivo
+		        //$resultado="ARCHIVO";
+                //echo $archivo." ".$destino;
+                if (copy($rutaActual."/".$archivosA[$i],$destino."/".$archivosA[$i])) {
+                    echo "El fichero ha sido copiado\n";
+                }else{
+                    echo "Se ha producido un error al intentar copiar el fichero\n";
+                }
+	       }
         }
         return $resultado;
     }
