@@ -25,4 +25,7 @@
     function hola(){
     	echo "Hola Ely";
     }
+    function saludo(){
+    	echo "Hola Mundo!!!";
+    }
 ?>
