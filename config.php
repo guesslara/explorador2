@@ -10,4 +10,5 @@
     $config['explorador']['path']="documentos";//ruta que se va a explorar dentro del directorio
     $config['explorador']['titulo']="Administrador de Archivos";//ruta que se va a explorar dentro del directorio
     $config['explorador']['pruebaEly']="No me cree";//ruta que se va a explorar dentro del directorio
+    $config['explorador']['pruebaEly2']="Trabajo colaborativo";//ruta que se va a explorar dentro del directorio
 ?>
