@@ -18,4 +18,5 @@
     $config['explorador']['pruebaEly2']="Trabajo colaborativo 2";//ruta que se va a explorar dentro del directorio
     $config['explorador']['pruebaEly2']="Trabajo de prueba ";//ruta que se va a explorar dentro del directorio
     $config['explorador']['pruebaEly2']="Trabajo colaborativo 3";//ruta que se va a explorar dentro del directorio
+     $config['explorador']['pruebaEly2']="Trabajo de prueba 4";//ruta que se va a explorar dentro del directorio
 ?>
