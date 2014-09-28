@@ -8,4 +8,5 @@
     $config = array();
     
     $config['explorador']['path']="documentos";//ruta que se va a explorar dentro del directorio
+    $config['explorador']['titulo']="Administrador de Archivos";//ruta que se va a explorar dentro del directorio
 ?>
